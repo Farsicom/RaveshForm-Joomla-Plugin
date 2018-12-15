@@ -1,8 +1,12 @@
-function showDialog() {
+function showRaveshFormDialog() {
     var rvc = new RaveshFrameWork();
-    var rvcLang ='';
-    if (languagePosted == 'Persian (IR)') rvcLang = 'fa'; else rvcLang = 'en';
-    //var iconUrl = IconUrlPosted;
+
+    var rvcLang = '';
+    if (RaveshFormLang == 'Persian (IR)') rvcLang = 'fa'; else rvcLang = 'en';
+    var isCRM = RaveshFormIsCRM === 'true';
+    var isFormican = RaveshFormIsFormican === 'true';
+
+
     //Resources -----------------------
     var rvcResource = {
         fa: {
@@ -11,20 +15,24 @@ function showDialog() {
             floatRight: 'right',
             modalTitle: 'فرم‌ساز <span style="color: #03a9f4">روش</span>',
             modalDescription: 'افزونه‌ی اتصال وردپرس به فرم‌ساز رَوش',
+            modalTitle2: 'فرم‌ساز <span style="color: #03a9f4">فرم‌افزار</span>',
+            modalDescription2: 'افزونه‌ی اتصال وردپرس به فرم‌افزار',
             showTypeInline: 'اسکریپت',
             showTypeDialog: 'نمایش پنجره',
             showTypeLink: 'لینک',
             showTypeFab: 'دکمه شناور',
             serverUrl: 'آدرس سرور',
             domain: 'نام دامنه',
-            formId: 'شناسه فرم',
+            domain2: 'شناسه‌ی امنیتی',
+            formId: 'شناسه‌ی فرم',
             showType: 'نحوه نمایش',
             linkTitle: 'عنوان',
             iconTitle: 'افزودن فرم',
             create: 'ایجاد',
             viewForm: 'مشاهده‌ی فرم',
             enterDomain: 'نام دامنه را وارد نمایید.',
-            enterServerUrl: 'آدرس سرور را  وارد نمایید.',
+            enterDomain2: 'شناسه‌ی امنیتی را وارد نمایید.',
+            enterServerUrl: 'آدرس سرور را وارد نمایید.',
             enterFormId: 'شناسه‌ی فرم را وارد نمایید.'
         },
         en: {
@@ -33,12 +41,15 @@ function showDialog() {
             floatRight: 'left',
             modalTitle: '<span style="color: #03a9f4">Ravesh</span> Form Builder',
             modalDescription: 'Connect Ravesh Form Builder & wordpress',
+            modalTitle2: '<span style="color: #03a9f4">Formican</span> Form Builder',
+            modalDescription2: 'Connect Formican & wordpress',
             showTypeInline: 'Inline',
             showTypeDialog: 'Show Dialog',
             showTypeLink: 'Link',
             showTypeFab: 'Float Action Button',
             serverUrl: 'Server Url',
             domain: 'Domain',
+            domain2: 'Secret code',
             formId: 'Form Id',
             showType: 'Show Type',
             linkTitle: 'Title',
@@ -46,11 +57,13 @@ function showDialog() {
             create: 'Create',
             viewForm: 'View form',
             enterDomain: 'Please enter domain',
+            enterDomain2: 'Please enter Secret code',
             enterServerUrl: 'Please enter server url',
             enterFormId: 'Please enter form id'
         }
     };
     var res = rvcResource[rvcLang];
+
 
     //Style -----------------------
     var mainCss =
@@ -60,9 +73,9 @@ function showDialog() {
         '.rvc-modal-title {font-size: 18px;}' +
         '.rvc-modal-detail {color: gray;margin: 5px 0 20px;}' +
         '.rvc-close:hover,.rvc-close:focus {color: black;text-decoration: none;cursor: pointer;}' +
-        '.rvc-row {line-height: 45px;clear:both}' +
+        '.rvc-row {line-height: 25px;margin: 10px;overflow: hidden;}' +
         '.rvc-row span {min-width: 130px;float: ' + res.floatRight + ';font-size:12px;}' +
-        '.rvc-row input,.rvc-row select {width: 200px;float: ' + res.floatRight + ';line-height: 25px;height: 25px;box-sizing:border-box;}' +
+        '.rvc-row input,.rvc-row select {width: 200px;float: ' + res.floatRight + ';height: 30px;box-sizing:border-box;}' +
         '.rvc-modal .button{width:70px;margin-top:10px}';
     rvc.addCssStyleTag(mainCss);
 
@@ -77,13 +90,13 @@ function showDialog() {
     var txtFormId = rvc.createElement('input');
     var txtLinkTitle = rvc.createElement('input');
     var drdShowType = rvc.createElement('select');
-    var btnCreateCode = rvc.createElement('input', 'button button-primary button-large');
+    var btnCreateCode = rvc.createElement('input', 'btn button button-primary button-large');
     var btnClose = rvc.createElement('span', 'rvc-close');
 
 
     //Configuration Elements -----------------------
-    modalTitle.innerHTML = res.modalTitle;
-    modalDescription.innerHTML = res.modalDescription;
+    modalTitle.innerHTML = isCRM ? res.modalTitle : res.modalTitle2;
+    modalDescription.innerHTML = isCRM ? res.modalDescription : res.modalDescription2;
     btnClose.innerHTML = '&times;';
     modal.setAttribute('dir', res.dir);
     txtServerUrl.setAttribute('type', 'text');
@@ -104,6 +117,8 @@ function showDialog() {
         option.setAttribute('value', arrShowType[index][0]);
         drdShowType.appendChild(option);
     }
+
+
     //Append Elements -----------------------
     rvc.appendChilds(modalContent, [btnClose, modalTitle, modalDescription]);
     rvc.appendChilds(modal, [modalContent]);
@@ -116,9 +131,15 @@ function showDialog() {
         rvc.appendChilds(row, [span, elem]);
         return row;
     };
+
+    if (isCRM) {
+        rvc.appendChilds(modalContent, [
+            createRow(res.serverUrl, txtServerUrl)
+        ]);
+    }
+
     rvc.appendChilds(modalContent, [
-        createRow(res.serverUrl, txtServerUrl),
-        createRow(res.domain, txtDomain),
+        createRow(isCRM ? res.domain : res.domain2, txtDomain),
         createRow(res.formId, txtFormId),
         createRow(res.showType, drdShowType),
         createRow(res.linkTitle, txtLinkTitle),
@@ -135,6 +156,43 @@ function showDialog() {
         }
     };
 
+    btnCreateCode.onclick = function () {
+        if (txtDomain.value.toString() === "") {
+            alert(res.enterDomain);
+            txtDomain.focus();
+        } else if (txtServerUrl.value.toString() === "" && isCRM) {
+            alert(res.enterServerUrl);
+            txtServerUrl.focus();
+        } else if (txtFormId.value.toString() === "") {
+            alert(res.enterFormId);
+            txtFormId.focus();
+        } else {
+            var shortCode = '';
+            if (isCRM) {
+                shortCode = '[RaveshForm ' +
+                                'server="' + txtServerUrl.value.toString() + '" ' +
+                                'domain="' + txtDomain.value.toString() + '" ' +
+                                'formid="' + txtFormId.value.toString() + '" ' +
+                                'type="' + drdShowType.options[drdShowType.selectedIndex].value.toString() + '" ' +
+                                'title="' + txtLinkTitle.value.toString() + '" ' +
+                            ']';
+            } else {
+                shortCode = '[' + (isFormican ? 'Formican' : 'FormAfzar') + ' ' +
+                                'secretcode="' + txtDomain.value.toString() + '" ' +
+                                'formid="' + txtFormId.value.toString() + '" ' +
+                                'type="' + drdShowType.options[drdShowType.selectedIndex].value.toString() + '" ' +
+                                'title="' + txtLinkTitle.value.toString() + '" ' +
+                            ']';
+            }
+            jInsertEditorText(shortCode, 'jform_articletext');
+            document.cookie = "server=" + txtServerUrl.value.toString();
+            document.cookie = "domain=" + txtDomain.value.toString();
+            rvc.hide(modal);
+        }
+    }
+    rvc.show(modal);
+
+
     function RaveshFrameWork() {
         var self = this;
 
@@ -142,25 +200,16 @@ function showDialog() {
             var elem = document.createElement(tagName);
             if (className) {
                 var arrClasses = className.split(' ');
-                for(var index=0;index< arrClasses.length;index++){
-                    console.log(arrClasses[index] , "  "  , arrClasses , "  " , index );
+                for (var index = 0; index < arrClasses.length; index++) {
                     elem.classList.add(arrClasses[index]);
                 }
-               //for (var index in arrClasses)
-               //{
-               //    console.log(arrClasses[index] , "  "  , arrClasses , "  " , index );
-               //        elem.classList.add(arrClasses[index]);
-               //}
             }
             return elem;
         };
         self.appendChilds = function (parent, arrChilds) {
-            for(var elem=0;elem< arrChilds.length;elem++){
+            for (var elem = 0; elem < arrChilds.length; elem++) {
                 parent.appendChild(arrChilds[elem]);
             }
-           // for (var elem in arrChilds) {
-           //         parent.appendChild(arrChilds[elem]);
-           // }
         };
         self.hide = function (elem) {
             elem.style.display = 'none';
@@ -195,35 +244,5 @@ function showDialog() {
             return '';
         };
     }
-
-    btnCreateCode.onclick = function () {
-        if (txtDomain.value.toString() === "") {
-            alert(res.enterDomain);
-            txtDomain.focus();
-        } else if (txtServerUrl.value.toString() === "") {
-            alert(res.enterServerUrl);
-            txtServerUrl.focus();
-        } else if (txtFormId.value.toString() === "") {
-            alert(res.enterFormId);
-            txtFormId.focus();
-        } else {
-            jInsertEditorText(
-                '[RaveshForm ' +
-                'server="' + txtServerUrl.value.toString() + '" ' +
-                'domain="' + txtDomain.value.toString() + '" ' +
-                'formid="' + txtFormId.value.toString() + '" ' +
-                'type="' + drdShowType.options[drdShowType.selectedIndex].value.toString() + '" ' +
-                'title="' + txtLinkTitle.value.toString() + '" ' +
-                ']', 'jform_articletext');
-            document.cookie = "server=" + txtServerUrl.value.toString();
-            document.cookie = "domain=" + txtDomain.value.toString();
-
-
-            rvc.hide(modal);
-        }
-    }
-    rvc.show(modal);
-
-
 }
 

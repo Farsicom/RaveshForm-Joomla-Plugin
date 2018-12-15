@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="plugin" version="1.0"  method="upgrade"  group="editors-xtd">
-	<name>RaveshFormBuilderEditor</name>
-	<author>Farsicom Developer </author>
-	<creationDate> September 2018 </creationDate>
-	<copyright>(C)  2018 افزونه نمایش  فرم‌ساز رَوش در وردپرس.	</copyright>
-	<license>raveshcrm</license>
-	<authorEmail>Farsicom@Gmail.org</authorEmail>
-	<authorUrl>raveshcrm.ir</authorUrl>
-	<version>1.0.0</version>
-	<description>افزونه نمایش  فرم‌ساز رَوش در وردپرس</description>
-	<files>
-		<filename plugin="RaveshFormBuilderEditor">RaveshFormBuilderEditor.php</filename>
-		<filename >RaveshFormBuilderEditor.js</filename>
-		<filename>index.html</filename>
-		<filename>CRM_logo_black.png</filename>
-	</files>
-
-	<config>
-	</config>
+  <name>RaveshFormBuilderEditor</name>
+  <author>Farsicom Developer </author>
+  <creationDate> September 2018 </creationDate>
+  <copyright>(C)  2018 افزونه نمایش  فرم‌ساز رَوش در وردپرس.	</copyright>
+  <license>raveshcrm</license>
+  <authorEmail>Farsicom@Gmail.org</authorEmail>
+  <authorUrl>raveshcrm.ir</authorUrl>
+  <version>1.0.0</version>
+  <description>افزونه نمایش  فرم‌ساز رَوش در وردپرس</description>
+  <files>
+    <filename plugin="RaveshFormBuilderEditor">RaveshFormBuilderEditor.php</filename>
+    <filename >RaveshFormBuilderEditor.js</filename>
+  </files>
+  <config>
+  </config>
 </extension>

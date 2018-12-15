@@ -11,8 +11,5 @@
     <description>افزونه نمایش  فرم‌ساز رَوش در وردپرس</description>
     <files>
         <filename plugin="RaveshFormBuilderContent">RaveshFormBuilderContent.php</filename>
-        <filename >index.html</filename>
     </files>
-
-
 </extension>
