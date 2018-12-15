@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="package" version="2.5" method="upgrade">
+    <name>RaveshFormBuilder Plugin</name>
+    <author>Farsicom Developer </author>
+    <creationDate>September 2018 </creationDate>
+    <packagename>RaveshFormBuilder</packagename>
+    <version>1.0.0</version>
+    <url>http://raveshcrm.ir/</url>
+    <packager>Farsicom Developer</packager>
+    <packagerurl>http://raveshcrm.ir/</packagerurl>
+    <description>افزونه نمایش  فرم‌ساز رَوش در وردپرس</description>
+
+    <files folder="packages">
+        <file type="plugin" group="system">RaveshFormBuilderEditor.zip</file>
+        <file type="plugin" group="content" >RaveshFormBuilderContent.zip</file>
+    </files>
+</extension>

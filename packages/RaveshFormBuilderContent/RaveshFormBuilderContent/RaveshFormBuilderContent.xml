@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" version="3.2"  method="upgrade"  group="content">
+    <name>RaveshFormBuilderContent</name>
+    <author>Farsicom Developer </author>
+    <creationDate> September 2018 </creationDate>
+    <copyright>(C)  2018 افزونه نمایش  فرم‌ساز رَوش در وردپرس.	</copyright>
+    <license>raveshcrm</license>
+    <authorEmail>Farsicom@Gmail.org</authorEmail>
+    <authorUrl>raveshcrm.ir</authorUrl>
+    <version>1.0.0</version>
+    <description>افزونه نمایش  فرم‌ساز رَوش در وردپرس</description>
+    <files>
+        <filename plugin="RaveshFormBuilderContent">RaveshFormBuilderContent.php</filename>
+        <filename >index.html</filename>
+    </files>
+
+
+</extension>
